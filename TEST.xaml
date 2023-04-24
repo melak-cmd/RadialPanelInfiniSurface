@@ -1,0 +1,81 @@
+﻿<s:SurfaceUserControl x:Class="TestRadialPanelInfini.TEST"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:s="http://schemas.microsoft.com/surface/2008"
+                      xmlns:AM="clr-namespace:RadialPanelInfiniSurface"
+                      >
+    <s:SurfaceUserControl.Resources>
+        <ResourceDictionary>
+
+            <ControlTemplate x:Key="RadialTemplate">
+                <s:SurfaceScrollViewer x:Name="SSV" 
+                                       CanContentScroll="True" 
+                                       VerticalScrollBarVisibility="Hidden"
+                                       HorizontalScrollBarVisibility="Hidden"
+                                       PreviewContactDown="SSV_ContactDown" 
+                                       >
+                    <AM:RadialPanelInfinite IsItemsHost="True"
+                                            rotateAngle="0"
+                                            radiusPercentage="75" 
+                                            Loaded="RadialPanel_Loaded"
+                                            maxItems="90"
+                                            angleStart="-135"
+                                            />
+                </s:SurfaceScrollViewer>
+            </ControlTemplate>
+
+            <DataTemplate x:Key="CarouselTemplate">
+                <Grid Width="150" Height="150">
+                    <Border  Background="White"                   BorderBrush="#88000000"                        BorderThickness="1"                        CornerRadius="10"                       />
+                    <Image Source="{Binding}"></Image>
+                    <Label
+                       Content="{Binding}"
+                       Foreground="#FFFFFFFF"
+                       FontSize="30"
+                       HorizontalContentAlignment="Center"
+                       VerticalContentAlignment="Center"
+                       Margin="2,2,0,0">
+                    </Label>
+                    <Label
+                       Content="{Binding}"
+                       Foreground="#FFFFFFFF"
+                       FontSize="30"
+                       HorizontalContentAlignment="Center"
+                       VerticalContentAlignment="Center"
+                       Margin="0,0,2,2">
+                    </Label>
+                    <Label
+                       Content="{Binding}"
+                       Foreground="#FF000000"
+                       FontSize="30"
+                       HorizontalContentAlignment="Center"
+                       VerticalContentAlignment="Center">
+                    </Label>
+                </Grid>
+            </DataTemplate>
+            
+        </ResourceDictionary>
+    </s:SurfaceUserControl.Resources>
+    <Grid  Width="1024" 
+           Height="768" 
+           HorizontalAlignment="Center" 
+           x:Name="controlGrid"
+           >
+        <s:SurfaceListBox Width="768" 
+                          Height="768" 
+                          ItemsSource="{Binding}"
+                          Name="CarouselObj" 
+                          Template="{StaticResource RadialTemplate}" 
+                          ItemTemplate="{StaticResource CarouselTemplate}" 
+                          IsSynchronizedWithCurrentItem="True"
+                          Background="{x:Null}" 
+                          BorderBrush="{x:Null}"
+                          Foreground="{x:Null}" 
+                          RenderTransformOrigin="0.5,0.5" 
+                          >
+            <s:SurfaceListBox.RenderTransform>
+                <RotateTransform Angle="0"></RotateTransform>
+            </s:SurfaceListBox.RenderTransform>
+        </s:SurfaceListBox>
+    </Grid>
+</s:SurfaceUserControl>
